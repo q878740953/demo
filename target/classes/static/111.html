@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+  <script src="https://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+	<form class="layui-form" action="">
+  <div class="layui-form-item">
+    <label class="layui-form-label">商品名称</label>
+    <div class="layui-input-inline">
+      <input type="text" name="goodsName" required lay-verify="required" placeholder="请输入商品名称" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">下单价格</label>
+    <div class="layui-input-inline">
+      <input type="text" name="goodsPrice" required lay-verify="number" placeholder="请输入下单价格" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">下单数量</label>
+    <div class="layui-input-inline">
+      <input type="text" name="goodsNumber" required lay-verify="number" placeholder="请输入下单数量" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">下单平台</label>
+    <div class="layui-input-block">
+      <select name="goodsSource" lay-verify="required">
+        <option value=""></option>
+        <option value="0">京东</option>
+        <option value="1">淘宝</option>
+        <option value="2">欢太</option>
+        <option value="3">掌上</option>
+      </select>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+ 
+<script src="layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    $.ajax({
+    	url: '/save',
+    	data: data.field,
+    	type: 'post',
+    })
+    return true;
+  });
+});
+</script>
+</body>
+</html>
