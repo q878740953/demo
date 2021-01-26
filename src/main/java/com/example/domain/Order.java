@@ -8,6 +8,9 @@ public class Order {
     private int goodsPrice;
     private int goodsNumber;
     private int goodsSource;
+    private int payBackPrice;
+    private int isPayBack;
+    private int commission;
     private Date time;
 
     public int getId() {
@@ -58,6 +61,30 @@ public class Order {
         this.time = time;
     }
 
+    public int getCommission() {
+        return commission;
+    }
+
+    public void setCommission(int commission) {
+        this.commission = commission;
+    }
+
+    public int getPayBackPrice() {
+        return payBackPrice;
+    }
+
+    public void setPayBackPrice(int payBackPrice) {
+        this.payBackPrice = payBackPrice;
+    }
+
+    public int getIsPayBack() {
+        return isPayBack;
+    }
+
+    public void setIsPayBack(int isPayBack) {
+        this.isPayBack = isPayBack;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -66,6 +93,9 @@ public class Order {
                 ", goodsPrice=" + goodsPrice +
                 ", goodsNumber=" + goodsNumber +
                 ", goodsSource=" + goodsSource +
+                ", payBackPrice=" + payBackPrice +
+                ", isPayBack=" + isPayBack +
+                ", commission=" + commission +
                 ", time=" + time +
                 '}';
     }
