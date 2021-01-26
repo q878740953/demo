@@ -11,3 +11,5 @@ spring:
 logging:
   level:
     com.example.mapper: debug
+pagehelper:
+  auto-dialect: true

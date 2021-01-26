@@ -19,7 +19,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">返款金额</label>
         <div class="layui-input-block">
-            <input type="text" name="username" lay-verify="required" lay-reqtext="返款金额不能为空" placeholder="请输入返款金额" value="" class="layui-input">
+            <input id="payBackPrice" type="text" name="payBackPrice" lay-verify="required" lay-reqtext="返款金额不能为空" placeholder="请输入返款金额" value="" class="layui-input">
+            <input id="goodsId" type="hidden" name="id">
             <tip>填写自己的返款金额。</tip>
         </div>
     </div>
@@ -39,10 +40,18 @@
 
         //监听提交
         form.on('submit(saveBtn)', function (data) {
-            console.log(data)
+            $.ajax({
+                url: '/payBack',
+                data: data.field,
+                type: 'post',
+                success: function (data) {
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.location.reload();//刷新父页面，注意一定要在关闭当前iframe层之前执行刷新
+                    parent.layer.close(index); //再执行关闭
+                }
+            })
             return false;
         });
-
     });
 </script>
 </body>
