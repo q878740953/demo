@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -34,28 +35,30 @@ public class IndexController {
     }
     @GetMapping( "/welcome")
     public String welcome(){
-        return "page/welcome-1";
+        return "welcome-1";
     }
     @GetMapping( "/table")
     public String table(){
-        return "page/table";
+        return "table";
     }
     @GetMapping("/addOrder")
     public String addOrder(){
-        return "/page/table/add";
+        return "table/add";
     }
 
     @GetMapping("/submitPayBack")
     public String submitPayBack(){
-        return "/page/table/edit";
+        return "table/edit";
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public Map<String, String> loginCheck(User user, HttpSession httpSession){
+    public Map<String, String> loginCheck(User user, HttpSession httpSession, HttpServletRequest httpServletRequest){
         Map<String, String> map = new HashMap<>();
         User loginUser = userService.login(user);
         if (loginUser != null){
+            String remoteAddr = httpServletRequest.getRemoteAddr();
+            System.out.println(remoteAddr);
             httpSession.setAttribute("loginUser", loginUser);
             map.put("code", "0");
         }else {
