@@ -9,10 +9,10 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
-    @Insert("insert into order_records (goods_name, goods_price, goods_number, goods_source, time) values (#{goodsName},#{goodsPrice},#{goodsNumber},#{goodsSource}, #{time})")
+    @Insert("insert into order_records (goods_name, goods_price, goods_number, goods_source, time, user_id) values (#{goodsName},#{goodsPrice},#{goodsNumber},#{goodsSource}, #{time}, #{userId})")
     void save(Order order);
 
-    @Select("select * from order_records order by time desc")
+    @Select("select * from order_records where user_id = #{userId} order by time desc")
     @Results({
             @Result(id = true, property = "id", column = "id"),
             @Result(property = "goodsName", column = "goods_name"),
@@ -23,12 +23,12 @@ public interface OrderMapper {
             @Result(property = "isPayBack", column = "is_pay_back"),
             @Result(property = "time", column = "time")
     })
-    List<Order> findAllOrder();
+    List<Order> findAllOrder(int userId);
 
-    @Delete("delete from order_records where id in (#{ids})")
-    int delete(String ids);
+    @Delete("delete from order_records where user_id = #{userId} and id in (#{ids})")
+    int delete(@Param(value = "ids") String ids, @Param(value = "userId") int userId);
 
-    @Select("select * from order_records where id = #{id} order by time desc")
+    @Select("select * from order_records where id = #{id} and user_id = #{userId} order by time desc")
     @Results({
             @Result(id = true, property = "id", column = "id"),
             @Result(property = "goodsName", column = "goods_name"),
@@ -39,7 +39,7 @@ public interface OrderMapper {
             @Result(property = "isPayBack", column = "is_pay_back"),
             @Result(property = "time", column = "time")
     })
-    Order findOrderById(int id);
+    Order findOrderById(int id, int userId);
 
     @Update("update order_records set pay_back_price = #{payBackPrice}, is_pay_back=#{isPayBack} where id = #{id}")
     int update(Order order);

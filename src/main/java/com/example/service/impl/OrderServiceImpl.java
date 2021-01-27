@@ -1,24 +1,28 @@
 package com.example.service.impl;
 
 import com.example.domain.Order;
+import com.example.domain.User;
 import com.example.mapper.OrderMapper;
+import com.example.mapper.UserMapper;
 import com.example.service.IOrderService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
-
     @Autowired
     private OrderMapper orderMapper;
 
     @Override
-    public List<Order> findAllOrder() {
-        List<Order> orderList = orderMapper.findAllOrder();
+    public List<Order> findAllOrder(int userId) {
+        List<Order> orderList = orderMapper.findAllOrder(userId);
         for (Order order : orderList) {
             if (order.getPayBackPrice() != 0){
                 order.setCommission(order.getPayBackPrice() - order.getGoodsPrice());
@@ -28,24 +32,26 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public void save(Order order) {
+    public void save(Order order, int userId) {
+        order.setTime(new Date());
+        order.setUserId(userId);
         orderMapper.save(order);
     }
 
     @Override
-    public int delete(String ids) {
-        return orderMapper.delete(ids);
+    public int delete(String ids, int userId) {
+        return orderMapper.delete(ids, userId);
     }
 
     @Override
-    public Order findOrderById(int id) {
-        return orderMapper.findOrderById(id);
+    public Order findOrderById(int id, int userId) {
+        return orderMapper.findOrderById(id, userId);
     }
 
     @Override
-    public Map<String, Object> payBack(int id, int payBackPrice) {
+    public Map<String, Object> payBack(int id, int payBackPrice, int userId) {
         Map<String, Object> map = new HashMap<>();
-        Order order = orderMapper.findOrderById(id);
+        Order order = orderMapper.findOrderById(id, userId);
         if (order != null){
             order.setPayBackPrice(payBackPrice);
             if (payBackPrice != 0){

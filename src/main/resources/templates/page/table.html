@@ -6,8 +6,8 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="../css/public.css" media="all">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
 </head>
 <body>
 <div class="layuimini-container">
@@ -48,7 +48,7 @@
 
     </div>
 </div>
-<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['form', 'table'], function () {
         var $ = layui.jquery,
@@ -60,7 +60,8 @@
             url: '/getOrder',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter'],
-            cols: [[
+            cols: [
+                [
                 {type: "checkbox", width: 50},
                 {field: 'goodsName', width: 100, title: '名称'},
                 {field: 'goodsPrice', width: 80, title: '价格'},
@@ -80,7 +81,8 @@
                     }},
                 {field: 'time', width: 140, title: '报单时间', templet: "<span>{{!d.time?'':layui.util.toDateString(d.time, 'yyyy-MM-dd HH:mm') }}</span>"},
                 {title: '操作', minWidth: 140, toolbar: '#currentTableBar', align: "center"}
-            ]],
+            ]
+            ],
             limits: [10, 15, 20, 25, 50, 100],
             limit: 10,
             page: true,
@@ -88,24 +90,24 @@
         });
 
         // 监听搜索操作
-        form.on('submit(data-search-btn)', function (data) {
-            var result = JSON.stringify(data.field);
-            layer.alert(result, {
-                title: '最终的搜索信息'
-            });
-
-            //执行搜索重载
-            table.reload('currentTableId', {
-                page: {
-                    curr: 1
-                }
-                , where: {
-                    searchParams: result
-                }
-            }, 'data');
-
-            return false;
-        });
+        // form.on('submit(data-search-btn)', function (data) {
+        //     var result = JSON.stringify(data.field);
+        //     layer.alert(result, {
+        //         title: '最终的搜索信息'
+        //     });
+        //
+        //     //执行搜索重载
+        //     table.reload('currentTableId', {
+        //         page: {
+        //             curr: 1
+        //         }
+        //         , where: {
+        //             searchParams: result
+        //         }
+        //     }, 'data');
+        //
+        //     return false;
+        // });
 
         /**
          * toolbar监听事件
@@ -119,7 +121,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/add.html',
+                    content: '/addOrder',
                 });
             } else if (obj.event === 'delete') {  // 监听删除操作
                 var data = table.checkStatus('currentTableId').data
@@ -157,7 +159,7 @@
                     shade: 0.2,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
+                    content: '/submitPayBack',
                     success: function (layero,index) {
                         var body = layui.layer.getChildFrame('body', index);
                         // iframe 父子页传值

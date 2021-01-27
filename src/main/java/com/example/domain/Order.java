@@ -12,6 +12,7 @@ public class Order {
     private int isPayBack;
     private int commission;
     private Date time;
+    private int userId;
 
     public int getId() {
         return id;
@@ -85,6 +86,14 @@ public class Order {
         this.isPayBack = isPayBack;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -97,6 +106,7 @@ public class Order {
                 ", isPayBack=" + isPayBack +
                 ", commission=" + commission +
                 ", time=" + time +
+                ", userId=" + userId +
                 '}';
     }
 }
