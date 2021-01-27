@@ -23,11 +23,6 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public List<Order> findAllOrder(int userId) {
         List<Order> orderList = orderMapper.findAllOrder(userId);
-        for (Order order : orderList) {
-            if (order.getPayBackPrice() != 0){
-                order.setCommission(order.getPayBackPrice() - order.getGoodsPrice());
-            }
-        }
         return orderList;
     }
 
@@ -56,8 +51,10 @@ public class OrderServiceImpl implements IOrderService {
             order.setPayBackPrice(payBackPrice);
             if (payBackPrice != 0){
                 order.setIsPayBack(1);
+                order.setCommission(order.getPayBackPrice() - order.getGoodsPrice() * order.getGoodsNumber());
             }else {
                 order.setIsPayBack(0);
+                order.setCommission(0);
             }
             int i = orderMapper.update(order);
             if (i == 1){

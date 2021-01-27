@@ -10,19 +10,19 @@
   },
   "menuInfo": [
     {
-      "title": "常规管理",
+      "title": "菜单",
       "icon": "fa fa-address-book",
       "href": "",
       "target": "_self",
       "child": [
         {
-          "title": "主页模板",
+          "title": "主页",
           "href": "/welcome",
           "icon": "fa fa-home",
           "target": "_self"
         },
         {
-          "title": "表格示例",
+          "title": "报单管理",
           "href": "/table",
           "icon": "fa fa-file-text",
           "target": "_self"

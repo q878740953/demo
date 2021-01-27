@@ -41,6 +41,6 @@ public interface OrderMapper {
     })
     Order findOrderById(int id, int userId);
 
-    @Update("update order_records set pay_back_price = #{payBackPrice}, is_pay_back=#{isPayBack} where id = #{id}")
+    @Update("update order_records set pay_back_price = #{payBackPrice}, is_pay_back=#{isPayBack} , commission = #{commission} where id = #{id}")
     int update(Order order);
 }
