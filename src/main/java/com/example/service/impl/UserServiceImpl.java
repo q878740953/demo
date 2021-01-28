@@ -1,7 +1,7 @@
 package com.example.service.impl;
 
-import com.example.domain.User;
-import com.example.mapper.UserMapper;
+import com.example.domain.Users;
+import com.example.mapper.UsersMapper;
 import com.example.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements IUserService {
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
-    private UserMapper userMapper;
+    private UsersMapper usersMapper;
     @Override
-    public User login(User user) {
-        User loginUser = null;
-        if (user != null){
-            loginUser = userMapper.login(user);
-            if (loginUser != null){
-                logger.info(loginUser.getUsername() + "登录成功！");
+    public Users login(Users users) {
+        Users loginUsers = null;
+        if (users != null){
+            loginUsers = usersMapper.login(users);
+            if (loginUsers != null){
+                logger.info(loginUsers.getUsername() + "登录成功！");
             }
         }
-        return loginUser;
+        return loginUsers;
     }
 }

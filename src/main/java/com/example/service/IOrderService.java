@@ -1,7 +1,6 @@
 package com.example.service;
 
 import com.example.domain.Order;
-import com.example.domain.User;
 
 import java.util.List;
 import java.util.Map;

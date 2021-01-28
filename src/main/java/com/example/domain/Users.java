@@ -2,7 +2,7 @@ package com.example.domain;
 
 import java.util.Date;
 
-public class User {
+public class Users {
     private int id;
     private String username;
     private String password;
@@ -60,7 +60,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Users{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

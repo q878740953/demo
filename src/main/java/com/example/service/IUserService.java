@@ -1,8 +1,8 @@
 package com.example.service;
 
-import com.example.domain.User;
+import com.example.domain.Users;
 
 public interface IUserService {
 
-    User login(User user);
+    Users login(Users users);
 }

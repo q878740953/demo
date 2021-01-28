@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.example.domain.Order;
-import com.example.domain.User;
+import com.example.domain.Users;
 import com.example.service.IOrderService;
 import com.example.service.IUserService;
 import com.github.pagehelper.Page;
@@ -51,30 +51,30 @@ public class IndexController {
         return "table/edit";
     }
 
-    @PostMapping("/login")
-    @ResponseBody
-    public Map<String, String> loginCheck(User user, HttpSession httpSession, HttpServletRequest httpServletRequest){
-        Map<String, String> map = new HashMap<>();
-        User loginUser = userService.login(user);
-        if (loginUser != null){
-            String remoteAddr = httpServletRequest.getRemoteAddr();
-            System.out.println(remoteAddr);
-            httpSession.setAttribute("loginUser", loginUser);
-            map.put("code", "0");
-        }else {
-            map.put("code", "1");
-            map.put("msg", "登录失败");
-        }
-        return map;
-    }
+//    @PostMapping("/login")
+//    @ResponseBody
+//    public Map<String, String> loginCheck(Users users, HttpSession httpSession, HttpServletRequest httpServletRequest){
+//        Map<String, String> map = new HashMap<>();
+//        Users loginUsers = userService.login(users);
+//        if (loginUsers != null){
+//            String remoteAddr = httpServletRequest.getRemoteAddr();
+//            System.out.println(remoteAddr);
+//            httpSession.setAttribute("loginUser", loginUsers);
+//            map.put("code", "0");
+//        }else {
+//            map.put("code", "1");
+//            map.put("msg", "登录失败");
+//        }
+//        return map;
+//    }
 
     @RequestMapping("/getOrder")
     @ResponseBody
     public Map<String, Object> getOrder(int page, int limit, HttpSession httpSession){
-        User user = (User) httpSession.getAttribute("loginUser");
+        Users users = (Users) httpSession.getAttribute("loginUser");
         Map<String, Object> map = new HashMap<>();
         Page<Object> startPage = PageHelper.startPage(page, limit);
-        List<Order> orderList = orderService.findAllOrder(user.getId());
+        List<Order> orderList = orderService.findAllOrder(users.getId());
         map.put("code", 0);
         map.put("count", startPage.getTotal());
         map.put("data", orderList);
@@ -84,10 +84,10 @@ public class IndexController {
     @RequestMapping("/save")
     @ResponseBody
     public Map<String, Object> save(Order order, HttpSession httpSession){
-        User user = (User) httpSession.getAttribute("loginUser");
+        Users users = (Users) httpSession.getAttribute("loginUser");
         Map<String, Object> map = new HashMap<>();
         try {
-            orderService.save(order, user.getId());
+            orderService.save(order, users.getId());
             map.put("code", 0);
         }catch (Exception e){
             map.put("code", 1);
@@ -99,10 +99,10 @@ public class IndexController {
     @RequestMapping("/delete")
     @ResponseBody
     public Map<String, Object> delete(String ids, HttpSession httpSession){
-        User user = (User) httpSession.getAttribute("loginUser");
+        Users users = (Users) httpSession.getAttribute("loginUser");
         Map<String, Object> map = new HashMap<>();
         try {
-            orderService.delete(ids, user.getId());
+            orderService.delete(ids, users.getId());
             map.put("code", 0);
         }catch (Exception e){
             map.put("code", 1);
@@ -116,7 +116,7 @@ public class IndexController {
     public Map<String, Object> payBack(@RequestParam(value = "id")int id,
                                        @RequestParam(value = "payBackPrice")int payBackPrice,
                                        HttpSession httpSession){
-        User user = (User) httpSession.getAttribute("loginUser");
-        return orderService.payBack(id, payBackPrice, user.getId());
+        Users users = (Users) httpSession.getAttribute("loginUser");
+        return orderService.payBack(id, payBackPrice, users.getId());
     }
 }

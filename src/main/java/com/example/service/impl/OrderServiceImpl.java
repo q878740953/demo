@@ -1,11 +1,8 @@
 package com.example.service.impl;
 
 import com.example.domain.Order;
-import com.example.domain.User;
 import com.example.mapper.OrderMapper;
-import com.example.mapper.UserMapper;
 import com.example.service.IOrderService;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +10,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
