@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>后台管理-登陆</title>
@@ -36,6 +36,7 @@
                     <h1>渣渣彪返款记录系统</h1>
                 </div>
                 <div class="layui-form-item">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />`
                     <label class="layui-icon layui-icon-username" for="username"></label>
                     <input type="text" name="username" lay-verify="required|account" placeholder="用户名" autocomplete="off" class="layui-input" value="">
                 </div>
@@ -45,6 +46,7 @@
                 </div>
                 <div class="layui-form-item">
                     <input type="checkbox" name="rememberMe" value="true" lay-skin="primary" title="记住密码">
+                    <input type="checkbox" name="remember-me" value="true" lay-skin="primary" title="七天内免密登录">
                 </div>
                 <div class="layui-form-item">
                     <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit="" lay-filter="login">登 入</button>

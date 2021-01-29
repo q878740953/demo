@@ -26,7 +26,7 @@ public class MyUserDetailsService implements UserDetailsService {
         if (users == null){
             throw new UsernameNotFoundException("用户不存在");
         }
-        List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList("role");
+        List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList("admin");
         return new User(users.getUsername(), new BCryptPasswordEncoder().encode(users.getPassword()), auths);
     }
 }

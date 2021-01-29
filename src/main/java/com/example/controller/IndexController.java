@@ -7,6 +7,7 @@ import com.example.service.IUserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,7 @@ public class IndexController {
 
     @GetMapping( "/login")
     public String login(){
+        System.out.println("==================");
         return "login-1";
     }
     @GetMapping( "/welcome")
@@ -74,7 +76,7 @@ public class IndexController {
         Users users = (Users) httpSession.getAttribute("loginUser");
         Map<String, Object> map = new HashMap<>();
         Page<Object> startPage = PageHelper.startPage(page, limit);
-        List<Order> orderList = orderService.findAllOrder(users.getId());
+        List<Order> orderList = orderService.findAllOrder(1);
         map.put("code", 0);
         map.put("count", startPage.getTotal());
         map.put("data", orderList);
@@ -118,5 +120,17 @@ public class IndexController {
                                        HttpSession httpSession){
         Users users = (Users) httpSession.getAttribute("loginUser");
         return orderService.payBack(id, payBackPrice, users.getId());
+    }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public String test(){
+        return "我是测试-----不被拦截!";
+    }
+
+    @RequestMapping("/hello")
+    @ResponseBody
+    public String hello(){
+        return "我是hello-----被拦截了!";
     }
 }
