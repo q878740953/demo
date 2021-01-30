@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>渣渣彪返款记录系统</title>
@@ -68,7 +68,11 @@
                             <hr>
                         </dd>
                         <dd>
-                            <a href="/user/logout" class="login-out">退出登录</a>
+                            <form action="/user/logout" method="post">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <input type="submit" value="退出登录">
+                            </form>
+
                         </dd>
                     </dl>
                 </li>
